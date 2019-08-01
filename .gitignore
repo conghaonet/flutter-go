@@ -80,4 +80,4 @@
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 added by conghao
-ios/Runner/Assets.xcassets/AppIcon.appiconset
+#ios/Runner/Assets.xcassets/AppIcon.appiconset
