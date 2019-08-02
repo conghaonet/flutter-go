@@ -22,7 +22,7 @@ class NetUtils {
     //     return "PROXY 30.10.24.185:8888";
     //   };
     // };
-
+//    setProxy("192.168.2.100", 8888);
     Directory documentsDir = await getApplicationDocumentsDirectory();
     String documentsPath = documentsDir.path;
     var dir = new Directory("$documentsPath/cookies");
@@ -44,6 +44,7 @@ class NetUtils {
     //     return "PROXY 30.10.24.185:8888";
     //   };
     // };
+//    setProxy("192.168.2.100", 8888);
     Directory documentsDir = await getApplicationDocumentsDirectory();
     String documentsPath = documentsDir.path;
     var dir = new Directory("$documentsPath/cookies");
@@ -51,5 +52,15 @@ class NetUtils {
     dio.interceptors.add(CookieManager(PersistCookieJar(dir: dir.path)));
     var response = await dio.post(url, data: params);
     return response.data;
+  }
+
+  /// 设置代理
+  static void setProxy(String proxyServer, int port) {
+    (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (HttpClient client) {
+      client.findProxy = (uri) {
+        return "PROXY $proxyServer:$port";
+      };
+      client.badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    };
   }
 }
